@@ -4,7 +4,7 @@
 
 ![Angora — a PDF document with colour-coded highlights and the annotation sidebar](assets/app-annotations.webp)
 
-**[Download the Beta](https://github.com/j-nivekk/AngoraAlpha/releases)** · *Landing page: [TBD]*
+**[Download the Beta](https://github.com/j-nivekk/Angora-Beta/releases)** · **[angora-app website](https://j-nivekk.github.io/Angora-Beta/)**
 
 ---
 
@@ -99,7 +99,7 @@ Step through matches with `Tab` (or `↩`), toggle the red `=` icon for exact-ma
 
 ## Installing
 
-Download the latest `.dmg` from the [Releases page](https://github.com/j-nivekk/AngoraAlpha/releases) and drag Angora into your Applications folder.
+Download the latest `.dmg` from the [Releases page](https://github.com/j-nivekk/Angora-Beta/releases) and drag Angora into your Applications folder.
 
 Angora is currently distributed unsigned. The first time you open it, macOS may ask you to bypass Gatekeeper — see Apple's guide for [opening apps from unidentified developers](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac).
 
@@ -112,7 +112,7 @@ Angora is currently distributed unsigned. The first time you open it, macOS may 
 
 ## Status
 
-Angora is in active development. The Beta is a stable foundation — fast, focused, and built around how researchers actually work with documents. Feedback, feature requests and bug reports are welcome via [GitHub issues](https://github.com/j-nivekk/AngoraAlpha/issues).
+Angora is in active development. The Beta is a stable foundation — fast, focused, and built around how researchers actually work with documents. Feedback, feature requests and bug reports are welcome via [GitHub issues](https://github.com/j-nivekk/Angora-Beta/issues).
 
 ---
 
