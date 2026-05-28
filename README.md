@@ -1,8 +1,10 @@
 # Angora
 
 > A native macOS PDF reader and annotator for researchers, scholars and professionals.
+>
+> *A document reader for the keen.*
 
-![Angora — a PDF document with colour-coded highlights and the annotation sidebar](assets/app-annotations.webp)
+![Angora — Good work begins with gleaming tools.](assets/og-card.png)
 
 **[Download the Beta](https://github.com/j-nivekk/Angora-Beta/releases)** · **[angora-app website](https://j-nivekk.github.io/Angora-Beta/)**
 
@@ -10,9 +12,11 @@
 
 ## Why Angora?
 
+![Angora — a PDF document with colour-coded highlights and the annotation sidebar](assets/app-annotations.webp)
+
 Most PDF readers treat annotation as an afterthought. Highlighting a sentence means moving your cursor to a toolbar, clicking a tool, dragging across the text, and finding your way back to where you were reading. Every round trip is a small context switch. By the end of a long document, those small interruptions add up.
 
-Angora is built on a simpler observation: **the less your cursor leaves the page, the more you stay inside the text.** Press a single key to activate a tool, select your text, and you are done. The cursor never leaves the page, the toolbar never gets in the way, and the document stays at the centre of attention.
+Angora is built on a simpler observation: **the less your cursor leaves the page, the more you stay inside the text.** We have split the responsibilities cleanly — your cursor stays at your reading position, ready to select any text or area; your keyboard runs the tools, the colours, and the page. One half of you reads. The other half annotates. Neither half has to do the other's work.
 
 This is not a stripped-down reader. It is a full annotation workspace that gets out of your way.
 
@@ -36,7 +40,7 @@ The interface follows macOS design conventions — if you're comfortable with Pr
 
 ## One-key annotation
 
-Press a letter to activate a tool, select your text, and you are done.
+**Customisable, tool-sensitive, cursor-independent, menu-free shortcuts — for every tool.** Press a letter, select your text, and you are done.
 
 | Key | Tool          |
 |-----|---------------|
@@ -48,7 +52,7 @@ Press a letter to activate a tool, select your text, and you are done.
 | N   | Note          |
 | D   | Delete        |
 
-Press the same key again to deactivate, or another to switch tools. Every shortcut can be remapped in **Settings → Shortcuts**.
+Press the same key again to deactivate, or another to switch tools. Every shortcut can be remapped in **Settings → Shortcuts**. Any less, and we would be doing the job for you.
 
 ### Quick colour palette
 
@@ -122,4 +126,4 @@ Angora is in active development. The Beta is a stable foundation — fast, focus
 
 ---
 
-*Angora is an independent macOS application. It is not affiliated with or endorsed by any other PDF software.*
+*Angora — a document reader for the keen. An independent macOS application, not affiliated with or endorsed by any other PDF software.*

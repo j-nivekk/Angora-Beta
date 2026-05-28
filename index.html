@@ -1,15 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Angora — A PDF reader built for how you actually read</title>
-  <meta name="description" content="Angora is a native macOS PDF reader and annotator for researchers, scholars and professionals. One-key annotation, native performance, and an annotation sidebar that scales to long documents.">
+  <title>Angora — Good work begins with gleaming tools</title>
+  <meta name="description"
+    content="Angora is a native macOS PDF reader and annotator for researchers, scholars and professionals. One-key annotation, native performance, and an annotation sidebar that scales to long documents.">
   <link rel="icon" type="image/png" href="assets/app-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Angora — Good work begins with gleaming tools.">
+  <meta property="og:description"
+    content="A native macOS PDF reader and annotator. A document reader for the keen.">
+  <meta property="og:url" content="https://j-nivekk.github.io/Angora-Beta/">
+  <meta property="og:image" content="https://j-nivekk.github.io/Angora-Beta/assets/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://j-nivekk.github.io/Angora-Beta/assets/og-card.png">
+
   <script>
     // Set theme before paint to avoid flash of incorrect theme.
     (function () {
@@ -17,10 +31,11 @@
         var stored = localStorage.getItem('angora-theme');
         var theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
         document.documentElement.setAttribute('data-theme', theme);
-      } catch (e) {}
+      } catch (e) { }
     })();
   </script>
 </head>
+
 <body>
 
   <!-- Navigation -->
@@ -38,8 +53,16 @@
         <a href="#more">More</a>
         <a href="#download" class="nav-cta">Download</a>
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour theme">
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4.2" />
+            <path
+              d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8" />
+          </svg>
         </button>
       </div>
     </div>
@@ -49,9 +72,21 @@
   <section class="hero" id="hero">
     <div class="hero-content">
       <img src="assets/app-icon.png" alt="Angora app icon" class="hero-icon">
-      <h1>A PDF reader built for how you actually read.</h1>
-      <p class="hero-tagline">A native macOS reader and annotator for researchers, scholars and professionals.</p>
-      <p class="hero-sub">One-key annotation, native performance, and annotation management that holds up across documents hundreds of pages long. Your cursor never leaves the page.</p>
+      <h1>Good work begins with gleaming tools.</h1>
+      <p class="aphorism-zh" lang="zh-Hans">工欲善其事，必先利其器</p>
+      <details class="aphorism-trivia hero-trivia">
+        <summary>On the saying</summary>
+        <div class="aphorism-trivia-body">
+          <p>From the <em>Analects of Confucius</em>, Book XV. A student asked how to practise virtue; Confucius answered
+            with a craftsman's metaphor — a workman who wishes to do his work well must first sharpen his tools. Two and a
+            half millennia later, the line survives as a quiet argument that the quality of the work is inseparable from
+            the quality of the instrument.</p>
+          <p class="aphorism-cite">— 《论语 · 卫灵公》</p>
+        </div>
+      </details>
+      <p class="hero-tagline">A document reader for the keen.</p>
+      <p class="hero-sub">One-key annotation, native performance, and annotation management that holds up across
+        documents hundreds of pages long. Your cursor never leaves the page.</p>
       <div class="hero-actions">
         <a href="#download" class="btn btn-primary">Download Beta</a>
         <a href="#demo" class="btn btn-ghost">See how it works</a>
@@ -59,7 +94,9 @@
     </div>
 
     <div class="hero-visual">
-      <img src="assets/app-annotations.webp" alt="Angora showing a PDF with colour-coded highlights and the annotation sidebar, annotation tools embedded in the macOS toolbar" class="hero-shot" width="1920" height="1233">
+      <img src="assets/app-annotations.webp"
+        alt="Angora showing a PDF with colour-coded highlights and the annotation sidebar, annotation tools embedded in the macOS toolbar"
+        class="hero-shot" width="1920" height="1233">
     </div>
   </section>
 
@@ -68,7 +105,9 @@
     <div class="section-header">
       <span class="eyebrow">Workflow</span>
       <h2>The difference is in the workflow</h2>
-      <p>Most PDF readers send you back to a toolbar every time you annotate. Angora keeps your hands on the keyboard and your cursor on the page.</p>
+      <p>Most PDF readers send you back to a toolbar every time you annotate. Angora splits the responsibilities
+        cleanly: your cursor stays at your reading position; your keyboard runs the tools, the colours, and the page.
+      </p>
     </div>
 
     <div class="demo-container">
@@ -77,28 +116,45 @@
         <div class="demo-label">Other readers</div>
         <div class="os-window demo-window">
           <div class="os-titlebar">
-            <div class="traffic"><span class="t-red"></span><span class="t-yellow"></span><span class="t-green"></span></div>
-            <div class="os-title"><div class="t-name">Research_Paper.pdf</div></div>
+            <div class="traffic"><span class="t-red"></span><span class="t-yellow"></span><span class="t-green"></span>
+            </div>
+            <div class="os-title">
+              <div class="t-name">Research_Paper.pdf</div>
+            </div>
             <div class="os-titlebar-trailing"></div>
           </div>
           <div class="demo-toolbar" id="preview-toolbar">
             <div class="demo-tool" id="preview-tool-highlight" title="Highlight">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h4l9.5-9.5-4-4L4 15z"/><path d="M13.5 5.5l4 4"/><path d="M4 19l-1.2 2.2L5 20"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M4 19h4l9.5-9.5-4-4L4 15z" />
+                <path d="M13.5 5.5l4 4" />
+                <path d="M4 19l-1.2 2.2L5 20" />
+              </svg>
             </div>
             <div class="demo-tool" title="Underline">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><text x="12" y="16" text-anchor="middle" font-size="13" font-weight="600" fill="currentColor" stroke="none">U</text><line x1="6" y1="19.5" x2="18" y2="19.5"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><text x="12" y="16"
+                  text-anchor="middle" font-size="13" font-weight="600" fill="currentColor" stroke="none">U</text>
+                <line x1="6" y1="19.5" x2="18" y2="19.5" />
+              </svg>
             </div>
             <div class="demo-tool" title="Strikethrough">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><text x="12" y="16" text-anchor="middle" font-size="13" font-weight="600" fill="currentColor" stroke="none">S</text><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><text x="12" y="16"
+                  text-anchor="middle" font-size="13" font-weight="600" fill="currentColor" stroke="none">S</text>
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
             </div>
             <div class="demo-tool-separator"></div>
-            <div class="demo-tool" title="Colour"><div class="demo-color-swatch"></div></div>
+            <div class="demo-tool" title="Colour">
+              <div class="demo-color-swatch"></div>
+            </div>
           </div>
           <div class="os-pdf">
             <div class="mock-pdf" id="preview-pdf">
               <div class="mock-text-line">The rapid adoption of large language</div>
               <div class="mock-text-line">models has fundamentally altered the</div>
-              <div class="mock-text-line mock-target-line" id="preview-target">landscape of natural language processing,</div>
+              <div class="mock-text-line mock-target-line" id="preview-target">landscape of natural language processing,
+              </div>
               <div class="mock-text-line">raising important questions about</div>
               <div class="mock-text-line">evaluation methodology and benchmark</div>
               <div class="mock-text-line">design in contemporary NLP research.</div>
@@ -108,13 +164,17 @@
               <div class="mock-text-line">capabilities observed in these systems.</div>
               <div class="mock-highlight-overlay" id="preview-highlight"></div>
               <div class="mock-cursor" id="preview-cursor"></div>
-              <svg class="mock-cursor-path" id="preview-path"><polyline/></svg>
+              <svg class="mock-cursor-path" id="preview-path">
+                <polyline />
+              </svg>
             </div>
           </div>
         </div>
         <div class="demo-stats" id="preview-stats">
-          <div class="stat"><span class="stat-value" id="preview-steps">—</span><span class="stat-label">steps</span></div>
-          <div class="stat"><span class="stat-value" id="preview-distance">—</span><span class="stat-label">cursor travel</span></div>
+          <div class="stat"><span class="stat-value" id="preview-steps">—</span><span class="stat-label">steps</span>
+          </div>
+          <div class="stat"><span class="stat-value" id="preview-distance">—</span><span class="stat-label">cursor
+              travel</span></div>
         </div>
       </div>
 
@@ -124,28 +184,47 @@
         <div class="os-window demo-window">
           <div class="os-titlebar with-tools">
             <div class="tb-left">
-              <div class="traffic"><span class="t-red"></span><span class="t-yellow"></span><span class="t-green"></span></div>
+              <div class="traffic"><span class="t-red"></span><span class="t-yellow"></span><span
+                  class="t-green"></span></div>
             </div>
-            <div class="os-title"><div class="t-name">Research_Paper.pdf</div></div>
+            <div class="os-title">
+              <div class="t-name">Research_Paper.pdf</div>
+            </div>
             <div class="os-titlebar-trailing tb-tools">
               <div class="tb-tool" data-tool="H">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h4l9.5-9.5-4-4L4 15z"/><path d="M13.5 5.5l4 4"/><path d="M4 19l-1.2 2.2L5 20"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M4 19h4l9.5-9.5-4-4L4 15z" />
+                  <path d="M13.5 5.5l4 4" />
+                  <path d="M4 19l-1.2 2.2L5 20" />
+                </svg>
                 <span class="tb-key">h</span>
               </div>
               <div class="tb-tool">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><text x="12" y="16" text-anchor="middle" font-size="13" font-weight="600" fill="currentColor" stroke="none">S</text><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><text x="12" y="16"
+                    text-anchor="middle" font-size="13" font-weight="600" fill="currentColor" stroke="none">S</text>
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
                 <span class="tb-key">s</span>
               </div>
               <div class="tb-tool">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><text x="12" y="16" text-anchor="middle" font-size="13" font-weight="600" fill="currentColor" stroke="none">U</text><line x1="6" y1="19.5" x2="18" y2="19.5"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><text x="12" y="16"
+                    text-anchor="middle" font-size="13" font-weight="600" fill="currentColor" stroke="none">U</text>
+                  <line x1="6" y1="19.5" x2="18" y2="19.5" />
+                </svg>
                 <span class="tb-key">u</span>
               </div>
               <div class="tb-tool">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <circle cx="12" cy="12" r="8" />
+                </svg>
                 <span class="tb-key">c</span>
               </div>
               <span class="tb-chevron">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <polyline points="15 6 9 12 15 18" />
+                </svg>
               </span>
             </div>
           </div>
@@ -153,7 +232,8 @@
             <div class="mock-pdf" id="angora-pdf">
               <div class="mock-text-line">The rapid adoption of large language</div>
               <div class="mock-text-line">models has fundamentally altered the</div>
-              <div class="mock-text-line mock-target-line" id="angora-target">landscape of natural language processing,</div>
+              <div class="mock-text-line mock-target-line" id="angora-target">landscape of natural language processing,
+              </div>
               <div class="mock-text-line">raising important questions about</div>
               <div class="mock-text-line">evaluation methodology and benchmark</div>
               <div class="mock-text-line">design in contemporary NLP research.</div>
@@ -163,7 +243,9 @@
               <div class="mock-text-line">capabilities observed in these systems.</div>
               <div class="mock-highlight-overlay" id="angora-highlight"></div>
               <div class="mock-cursor" id="angora-cursor"></div>
-              <svg class="mock-cursor-path" id="angora-path"><polyline/></svg>
+              <svg class="mock-cursor-path" id="angora-path">
+                <polyline />
+              </svg>
             </div>
           </div>
         </div>
@@ -199,14 +281,20 @@
           </div>
         </div>
         <div class="demo-stats" id="angora-stats">
-          <div class="stat"><span class="stat-value" id="angora-steps">—</span><span class="stat-label">steps</span></div>
-          <div class="stat"><span class="stat-value" id="angora-distance">—</span><span class="stat-label">cursor travel</span></div>
+          <div class="stat"><span class="stat-value" id="angora-steps">—</span><span class="stat-label">steps</span>
+          </div>
+          <div class="stat"><span class="stat-value" id="angora-distance">—</span><span class="stat-label">cursor
+              travel</span></div>
         </div>
       </div>
     </div>
 
     <button class="btn btn-ghost demo-replay" id="demo-replay">
-      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 10a7 7 0 0 1 12.9-3.7M17 10a7 7 0 0 1-12.9 3.7"/><polyline points="16 2 16 7 11 7"/><polyline points="4 18 4 13 9 13"/></svg>
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M3 10a7 7 0 0 1 12.9-3.7M17 10a7 7 0 0 1-12.9 3.7" />
+        <polyline points="16 2 16 7 11 7" />
+        <polyline points="4 18 4 13 9 13" />
+      </svg>
       Replay
     </button>
   </section>
@@ -216,18 +304,28 @@
     <div class="section-header">
       <span class="eyebrow">Quick colours</span>
       <h2>Press a number, change the colour</h2>
-      <p>Keys 1 to 9 apply any of nine customisable colours. Press 0 to return to the default. Angora remembers the last colour you used for each tool.</p>
+      <p>Keys 1 to 9 apply any of nine customisable colours. Press 0 to return to the default. Angora remembers the last
+        colour you used for each tool.</p>
     </div>
     <div class="palette">
-      <div class="swatch"><span class="swatch-dot" style="background:#f4d03f"></span><span class="swatch-num">1</span></div>
-      <div class="swatch"><span class="swatch-dot" style="background:#69ae6a"></span><span class="swatch-num">2</span></div>
-      <div class="swatch"><span class="swatch-dot" style="background:#de2a12"></span><span class="swatch-num">3</span></div>
-      <div class="swatch"><span class="swatch-dot" style="background:#4a90d9"></span><span class="swatch-num">4</span></div>
-      <div class="swatch"><span class="swatch-dot" style="background:#e08a3c"></span><span class="swatch-num">5</span></div>
-      <div class="swatch"><span class="swatch-dot" style="background:#9b6fc4"></span><span class="swatch-num">6</span></div>
-      <div class="swatch"><span class="swatch-dot" style="background:#e36fa0"></span><span class="swatch-num">7</span></div>
-      <div class="swatch"><span class="swatch-dot" style="background:#3bb3a8"></span><span class="swatch-num">8</span></div>
-      <div class="swatch"><span class="swatch-dot" style="background:#c1cfbc"></span><span class="swatch-num">9</span></div>
+      <div class="swatch"><span class="swatch-dot" style="background:#f4d03f"></span><span class="swatch-num">1</span>
+      </div>
+      <div class="swatch"><span class="swatch-dot" style="background:#69ae6a"></span><span class="swatch-num">2</span>
+      </div>
+      <div class="swatch"><span class="swatch-dot" style="background:#de2a12"></span><span class="swatch-num">3</span>
+      </div>
+      <div class="swatch"><span class="swatch-dot" style="background:#4a90d9"></span><span class="swatch-num">4</span>
+      </div>
+      <div class="swatch"><span class="swatch-dot" style="background:#e08a3c"></span><span class="swatch-num">5</span>
+      </div>
+      <div class="swatch"><span class="swatch-dot" style="background:#9b6fc4"></span><span class="swatch-num">6</span>
+      </div>
+      <div class="swatch"><span class="swatch-dot" style="background:#e36fa0"></span><span class="swatch-num">7</span>
+      </div>
+      <div class="swatch"><span class="swatch-dot" style="background:#3bb3a8"></span><span class="swatch-num">8</span>
+      </div>
+      <div class="swatch"><span class="swatch-dot" style="background:#c1cfbc"></span><span class="swatch-num">9</span>
+      </div>
     </div>
   </section>
 
@@ -241,34 +339,65 @@
 
     <div class="features-grid">
       <div class="feature reveal">
-        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M7 12h10"/></svg></div>
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4" />
+            <path d="M7 12h10" />
+          </svg></div>
         <h3>One-key annotation</h3>
-        <p>Press a letter to activate a tool, select your text, and you are done. Your cursor never leaves the page, and every shortcut is fully customisable.</p>
+        <p><strong>Customisable, tool-sensitive, cursor-independent, menu-free shortcuts — for every tool.</strong> Press
+          a letter, select your text, and you are done. Any less, and we would be doing the job for you.</p>
       </div>
       <div class="feature reveal">
-        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="9"/><path d="M12 3v2m0 14v2M3 12h2m14 0h2"/></svg></div>
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="4" />
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3v2m0 14v2M3 12h2m14 0h2" />
+          </svg></div>
         <h3>Quick colour palette</h3>
-        <p>Press 1 to 9 to apply any of nine customisable colours. Press 0 to return to the default. Angora remembers the last colour you used for each tool.</p>
+        <p>Press 1 to 9 to apply any of nine customisable colours. Press 0 to return to the default. Angora remembers
+          the last colour you used for each tool.</p>
       </div>
       <div class="feature reveal">
-        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 10-12h-8l1-8z"/></svg></div>
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+            stroke-linejoin="round">
+            <path d="M13 2 4 14h7l-1 8 10-12h-8l1-8z" />
+          </svg></div>
         <h3>Native performance</h3>
-        <p>Built in SwiftUI on top of PDFKit — not Electron, not a web view. Instant startup, smooth scrolling, low memory, and real system integration.</p>
+        <p>Built in SwiftUI on top of PDFKit — not Electron, not a web view. Instant startup, smooth scrolling, low
+          memory, and real system integration.</p>
       </div>
       <div class="feature reveal">
-        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h14"/><circle cx="19" cy="12" r="2"/></svg></div>
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round">
+            <path d="M4 6h16M4 12h10M4 18h14" />
+            <circle cx="19" cy="12" r="2" />
+          </svg></div>
         <h3>Annotation management</h3>
-        <p>Sort by page, date or density. Filter by type and colour. Name your colours, write inline Markdown comments, and search across annotations.</p>
+        <p>Sort by page, date or density. Filter by type and colour. Name your colours, write inline Markdown comments,
+          and search across annotations.</p>
       </div>
       <div class="feature reveal">
-        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></div>
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+            stroke-linecap="round">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M21 21l-4.35-4.35" />
+          </svg></div>
         <h3>Document search</h3>
-        <p>Cmd-F searches the document, with results grouped by page. Step through matches with Tab, toggle exact-match for case-sensitive queries, or sort by page or hit count.</p>
+        <p>Cmd-F searches the document, with results grouped by page. Step through matches with Tab, toggle exact-match
+          for case-sensitive queries, or sort by page or hit count.</p>
       </div>
       <div class="feature reveal">
-        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="9" cy="9" r="1.4"/><circle cx="15" cy="9" r="1.4"/><circle cx="9" cy="15" r="1.4"/><circle cx="15" cy="15" r="1.4"/></svg></div>
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            <circle cx="9" cy="9" r="1.4" />
+            <circle cx="15" cy="9" r="1.4" />
+            <circle cx="9" cy="15" r="1.4" />
+            <circle cx="15" cy="15" r="1.4" />
+          </svg></div>
         <h3>Shape editing</h3>
-        <p>Resize and reposition rectangles and ellipses. Copy, paste and duplicate them with standard shortcuts, and move them across pages.</p>
+        <p>Resize and reposition rectangles and ellipses. Copy, paste and duplicate them with standard shortcuts, and
+          move them across pages.</p>
       </div>
     </div>
   </section>
@@ -282,7 +411,9 @@
     </div>
 
     <figure class="app-shot reveal">
-      <img src="assets/app-colours.webp" alt="Angora with colour-coded highlights across a paper and the colour palette open in the annotation sidebar" loading="lazy" width="1920" height="1233">
+      <img src="assets/app-colours.webp"
+        alt="Angora with colour-coded highlights across a paper and the colour palette open in the annotation sidebar"
+        loading="lazy" width="1920" height="1233">
       <figcaption>Encode meaning with colour. Filter and sort the sidebar by type, colour, page or date.</figcaption>
     </figure>
 
@@ -290,22 +421,26 @@
       <div class="detail-item reveal">
         <div class="detail-label">Sort</div>
         <h3>View by page, date or most populated</h3>
-        <p>Sort annotations by page order, creation date or density. Group them into collapsible sections, with a small coloured dot that doubles as the expand-and-collapse control.</p>
+        <p>Sort annotations by page order, creation date or density. Group them into collapsible sections, with a small
+          coloured dot that doubles as the expand-and-collapse control.</p>
       </div>
       <div class="detail-item reveal">
         <div class="detail-label">Filter</div>
         <h3>Type and colour filtering</h3>
-        <p>Toggle annotation types on or off with a visual filter bar. Narrow by colour when you use colour to encode meaning. Name your colours from the context menu — named colours sort to the front.</p>
+        <p>Toggle annotation types on or off with a visual filter bar. Narrow by colour when you use colour to encode
+          meaning. Name your colours from the context menu — named colours sort to the front.</p>
       </div>
       <div class="detail-item reveal">
         <div class="detail-label">Edit</div>
         <h3>Inline editing with Markdown</h3>
-        <p>Hover over any annotation to reveal edit and delete controls. Comments render inline Markdown — write in plain text, see the formatting in place.</p>
+        <p>Hover over any annotation to reveal edit and delete controls. Comments render inline Markdown — write in
+          plain text, see the formatting in place.</p>
       </div>
       <div class="detail-item reveal">
         <div class="detail-label">Search</div>
         <h3>Search within annotations</h3>
-        <p>Cmd-Shift-F searches across annotation text and comments. Restrict to highlighted text, comments or both, and combine with and/or logic for precise filtering.</p>
+        <p>Cmd-Shift-F searches across annotation text and comments. Restrict to highlighted text, comments or both, and
+          combine with and/or logic for precise filtering.</p>
       </div>
     </div>
   </section>
@@ -315,12 +450,16 @@
     <div class="section-header">
       <span class="eyebrow">Search</span>
       <h2>Document search</h2>
-      <p>Press Cmd-F to search the full document. Results are grouped by page, with surrounding context for every hit.</p>
+      <p>Press Cmd-F to search the full document. Results are grouped by page, with surrounding context for every hit.
+      </p>
     </div>
 
     <figure class="app-shot reveal">
-      <img src="assets/app-search.webp" alt="Angora document search showing 33 hits across 7 pages grouped by page, with a hover thumbnail preview of a result" loading="lazy" width="1920" height="1233">
-      <figcaption>Matches grouped by page with hit counts. Hover a page header for a live thumbnail preview.</figcaption>
+      <img src="assets/app-search.webp"
+        alt="Angora document search showing 33 hits across 7 pages grouped by page, with a hover thumbnail preview of a result"
+        loading="lazy" width="1920" height="1233">
+      <figcaption>Matches grouped by page with hit counts. Hover a page header for a live thumbnail preview.
+      </figcaption>
     </figure>
 
     <div class="search-features">
@@ -341,10 +480,18 @@
     <!-- Faithful ⌘G go-to-page glass pill -->
     <div class="goto-demo reveal">
       <div class="goto-pill">
-        <span class="goto-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></span>
+        <span class="goto-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+            stroke-linecap="round">
+            <line x1="5" y1="5" x2="19" y2="19" />
+            <line x1="19" y1="5" x2="5" y2="19" />
+          </svg></span>
         <span class="goto-label">Go to:</span>
         <span class="goto-field">142</span>
-        <span class="goto-go">Go <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 10 4 15 9 20"/><path d="M20 4v7a4 4 0 0 1-4 4H4"/></svg></span>
+        <span class="goto-go">Go <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 10 4 15 9 20" />
+            <path d="M20 4v7a4 4 0 0 1-4 4H4" />
+          </svg></span>
       </div>
     </div>
   </section>
@@ -367,11 +514,13 @@
       </div>
       <div class="more-item reveal">
         <h3>Customisable toolbar</h3>
-        <p>Choose between a standard toolbar and a floating Liquid Glass overlay. Customise colour, opacity and spacing, and drag the overlay anywhere on the page.</p>
+        <p>Choose between a standard toolbar and a floating Liquid Glass overlay. Customise colour, opacity and spacing,
+          and drag the overlay anywhere on the page.</p>
       </div>
       <div class="more-item reveal">
         <h3>Multi-window</h3>
-        <p>Open multiple documents, each in its own window with independent state. Shortcuts are scoped to the active window.</p>
+        <p>Open multiple documents, each in its own window with independent state. Shortcuts are scoped to the active
+          window.</p>
       </div>
       <div class="more-item reveal">
         <h3>Table of contents</h3>
@@ -392,18 +541,7 @@
     </div>
   </section>
 
-  <!-- Aphorism / epigraph -->
-  <section class="aphorism reveal" aria-label="Epigraph">
-    <p class="aphorism-en">Good work begins with gleaming tools.</p>
-    <p class="aphorism-zh" lang="zh-Hans">工欲善其事，必先利其器</p>
-    <details class="aphorism-trivia">
-      <summary>On the saying</summary>
-      <div class="aphorism-trivia-body">
-        <p>From the <em>Analects of Confucius</em>, Book XV. A student asked how to practise virtue; Confucius answered with a craftsman's metaphor — a workman who wishes to do his work well must first sharpen his tools. Two and a half millennia later, the line survives as a quiet argument that the quality of the work is inseparable from the quality of the instrument.</p>
-        <p class="aphorism-cite">— 《论语 · 卫灵公》</p>
-      </div>
-    </details>
-  </section>
+
 
   <!-- Download -->
   <section class="section download-section" id="download">
@@ -413,7 +551,8 @@
       <p>For macOS 14 (Sonoma) or later. Apple Silicon or Intel.</p>
       <div class="download-actions">
         <a href="#" class="btn btn-primary btn-large" id="download-dmg">Download .dmg</a>
-        <a href="https://github.com/j-nivekk/Angora-Beta/releases" class="btn btn-ghost btn-large" target="_blank" rel="noopener">View on GitHub</a>
+        <a href="https://github.com/j-nivekk/Angora-Beta/releases" class="btn btn-ghost btn-large" target="_blank"
+          rel="noopener">View on GitHub</a>
       </div>
       <p class="download-note">Free during Beta. No account required.</p>
     </div>
@@ -432,4 +571,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>
