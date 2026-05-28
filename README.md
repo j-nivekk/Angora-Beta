@@ -2,7 +2,7 @@
 
 > A native macOS PDF reader and annotator for researchers, scholars and professionals.
 
-![Angora — a PDF document with colour-coded highlights and the annotation sidebar](landing/assets/app-annotations.webp)
+![Angora — a PDF document with colour-coded highlights and the annotation sidebar](assets/app-annotations.webp)
 
 **[Download the Beta](https://github.com/j-nivekk/AngoraAlpha/releases)** · *Landing page: [TBD]*
 
@@ -64,7 +64,7 @@ When you are working through a three-hundred-page report or a dense journal arti
 
 Angora's sidebar provides a dedicated **Annotations** panel with real structure.
 
-![Angora annotation sidebar with colour-coded highlights and the colour palette open](landing/assets/app-colours.webp)
+![Angora annotation sidebar with colour-coded highlights and the colour palette open](assets/app-colours.webp)
 
 - **Sort** by page order, creation date or density. Annotations group into collapsible sections, with a small coloured dot that doubles as the expand-and-collapse control.
 - **Filter** by annotation type and by colour. Toggle types on or off with a visual filter bar; narrow by colour when you use colour to encode meaning. Name your colours from the context menu — named colours sort to the front.
@@ -77,7 +77,7 @@ Angora's sidebar provides a dedicated **Annotations** panel with real structure.
 
 Press `⌘F` to search the full document. Angora uses PDFKit's native search engine, with results grouped by page and surrounding context for every hit.
 
-![Angora document search showing 33 hits across 7 pages](landing/assets/app-search.webp)
+![Angora document search showing 33 hits across 7 pages](assets/app-search.webp)
 
 Step through matches with `Tab` (or `↩`), toggle the red `=` icon for exact-match, case-sensitive queries, or sort results by page order or hit count. Hover any page header for a live thumbnail of that page.
 
