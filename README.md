@@ -122,6 +122,4 @@ Angora is in active development. The Beta is a stable foundation — fast, focus
 
 ---
 
-工欲善其事，必先利其器 — *good work begins with gleaming tools.*
-
 *Angora is an independent macOS application. It is not affiliated with or endorsed by any other PDF software.*
