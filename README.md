@@ -99,9 +99,15 @@ Step through matches with `Tab` (or `↩`), toggle the red `=` icon for exact-ma
 
 ## Installing
 
-Download the latest `.dmg` from the [Releases page](https://github.com/j-nivekk/Angora-Beta/releases) and drag Angora into your Applications folder.
+Download the latest `.dmg` from the [Releases page](https://github.com/j-nivekk/Angora-Beta/releases), open it, and drag Angora into your Applications folder.
 
-Angora is currently distributed unsigned. The first time you open it, macOS may ask you to bypass Gatekeeper — see Apple's guide for [opening apps from unidentified developers](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac).
+The Beta is signed with an Apple Development certificate but is **not notarised by Apple**, so macOS Gatekeeper will block it on first launch with a message about an unverified developer. You only need to do one of the following once — afterwards Angora opens normally.
+
+- **Recommended.** Control-click (or right-click) **Angora Beta** in Applications → **Open** → **Open** in the confirmation dialog.
+- **Or**, after a blocked first attempt, open **System Settings → Privacy & Security**, scroll to the security section, and click **Open Anyway** next to "Angora Beta was blocked".
+- **Or**, from Terminal: `xattr -cr /Applications/Angora\ Beta.app` to strip the quarantine attribute.
+
+Apple's official guide is [here](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac) if you'd like more context.
 
 ### System requirements
 
