@@ -10,10 +10,14 @@
   <link rel="icon" type="image/png" href="assets/app-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="assets/fonts/AlteHaasGroteskBold.woff2" as="font" type="font/woff2" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&text=%E5%96%84%E5%85%B6%E4%BA%8B%EF%BC%8C%E5%85%88%E5%88%A9%E5%85%B6%E5%99%A8%E3%80%82&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=5">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Angora — Good work begins with gleaming tools.">
@@ -68,23 +72,38 @@
     </div>
   </nav>
 
-  <!-- Hero -->
+  <!-- Hero — composable poster (Figma node 311:27).
+       Layer order, low to high z:
+         1. Green field (.hero-poster background)
+         2. Lower red banner
+         3. Animated scribe (z:2)
+         4. Main red card (z:3) and poster text -->
   <section class="hero" id="hero">
-    <div class="hero-content">
-      <img src="assets/app-icon.png" alt="Angora app icon" class="hero-icon">
-      <h1>Good work begins with gleaming tools.</h1>
-      <p class="aphorism-zh" lang="zh-Hans">工欲善其事，必先利其器</p>
-      <details class="aphorism-trivia hero-trivia">
-        <summary>On the saying</summary>
-        <div class="aphorism-trivia-body">
-          <p>From the <em>Analects of Confucius</em>, Book XV. A student asked how to practise virtue; Confucius answered
-            with a craftsman's metaphor — a workman who wishes to do his work well must first sharpen his tools. Two and a
-            half millennia later, the line survives as a quiet argument that the quality of the work is inseparable from
-            the quality of the instrument.</p>
-          <p class="aphorism-cite">— 《论语 · 卫灵公》</p>
+    <div class="hero-poster">
+      <h1 class="visually-hidden">Good work begins with gleaming tools.</h1>
+      <p class="visually-hidden" lang="zh-Hans">工欲善其事，必先利其器 — Angora, a document reader for the keen.</p>
+
+      <svg class="poster-scribe" viewBox="0 0 1920 1080" preserveAspectRatio="none" aria-hidden="true">
+        <path class="scribe-draw" pathLength="1"
+          d="M1908 10.0002C1809.25 -10.7572 1460 390.891 1369.5 197.5C1279 4.1088 1034.59 14.9838 1032.81 140.292C1031.51 231.197 1050.17 312.084 1096.81 390.891C1156.11 491.116 1390.26 536.673 1333.53 637.635C1263 763.127 796.483 622.718 758.304 612.189C534.842 550.563 758.304 416.5 636.5 246.5C514.697 76.5001 191 497.431 120 637.635C-107.287 1086.46 523.291 652.393 599.269 763.127C675.247 873.86 240.474 1147.78 389 1294.5C512.605 1416.6 1299.88 552.989 1294.5 872.833C1287.77 1273.33 1513.61 838.03 1945.5 809.333"
+          fill="none" stroke="#215C74" stroke-width="90" stroke-linecap="round"/>
+      </svg>
+
+      <div class="poster-card">
+        <div class="poster-card-static" aria-hidden="true">
+          <div class="poster-card-mark">Angora.app</div>
+          <div class="poster-card-headline">Good work begins with gleaming tools.</div>
+          <div class="poster-card-aphorism" lang="zh-Hans">善其事，先利其器。</div>
         </div>
-      </details>
-      <p class="hero-tagline">A document reader for the keen.</p>
+      </div>
+
+      <div class="poster-banner" aria-hidden="true">
+        <span class="poster-banner-mark">Angora</span>
+        <span class="poster-banner-tagline">document reader for the keen.</span>
+      </div>
+    </div>
+
+    <div class="hero-meta">
       <p class="hero-sub">One-key annotation, native performance, and annotation management that holds up across
         documents hundreds of pages long. Your cursor never leaves the page.</p>
       <div class="hero-actions">
@@ -92,12 +111,13 @@
         <a href="#demo" class="btn btn-ghost">See how it works</a>
       </div>
     </div>
+  </section>
 
-    <div class="hero-visual">
-      <img src="assets/app-annotations.webp"
-        alt="Angora showing a PDF with colour-coded highlights and the annotation sidebar, annotation tools embedded in the macOS toolbar"
-        class="hero-shot" width="1920" height="1233">
-    </div>
+  <!-- Hero preview screenshot -->
+  <section class="hero-preview" aria-label="Angora app preview">
+    <img src="assets/app-annotations.webp"
+      alt="Angora showing a PDF with colour-coded highlights and the annotation sidebar, annotation tools embedded in the macOS toolbar"
+      class="hero-shot" width="1920" height="1233">
   </section>
 
   <!-- Interactive Demo -->
@@ -546,7 +566,10 @@
   <!-- Download -->
   <section class="section download-section" id="download">
     <div class="download-content">
-      <img src="assets/app-icon.png" alt="Angora" class="download-icon">
+      <div class="download-icon-row" aria-label="Angora Beta">
+        <img src="assets/app-icon.png" alt="Angora" class="download-icon">
+        <img src="assets/app-icon-beta.png" alt="Angora Beta" class="download-icon">
+      </div>
       <h2>Try Angora Beta</h2>
       <p>For macOS 14 (Sonoma) or later. Apple Silicon or Intel.</p>
       <div class="download-actions">
@@ -569,7 +592,7 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=3"></script>
 </body>
 
 </html>

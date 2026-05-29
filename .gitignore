@@ -63,3 +63,18 @@ fastlane/test_output
 
 # macOS
 .DS_Store
+
+# Local editor / assistant state
+.claude/
+
+# Source exports and design handoff files
+_source/
+beta_icon/
+OP.svg
+illustration.svg
+scibe.svg
+
+# Local preview servers and temporary output
+.cache/
+.tmp/
+tmp/
