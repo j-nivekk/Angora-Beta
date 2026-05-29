@@ -7,17 +7,9 @@
   <title>Angora — Good work begins with gleaming tools</title>
   <meta name="description"
     content="Angora is a native macOS PDF reader and annotator for researchers, scholars and professionals. One-key annotation, native performance, and an annotation sidebar that scales to long documents.">
-  <link rel="icon" type="image/png" href="assets/app-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/png" href="assets/icons/app-icon-64.png">
   <link rel="preload" href="assets/fonts/AlteHaasGroteskBold.woff2" as="font" type="font/woff2" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&text=%E5%96%84%E5%85%B6%E4%BA%8B%EF%BC%8C%E5%85%88%E5%88%A9%E5%85%B6%E5%99%A8%E3%80%82&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="stylesheet" href="style.css?v=6">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Angora — Good work begins with gleaming tools.">
@@ -46,7 +38,14 @@
   <nav class="nav" id="nav">
     <div class="nav-inner">
       <a href="#hero" class="nav-brand">
-        <img src="assets/app-icon.png" alt="Angora" class="nav-icon">
+        <picture class="nav-icon-wrap">
+          <source type="image/webp"
+            srcset="assets/icons/app-icon-32.webp 32w, assets/icons/app-icon-64.webp 64w, assets/icons/app-icon-128.webp 128w"
+            sizes="28px">
+          <img src="assets/icons/app-icon-64.png"
+            srcset="assets/icons/app-icon-32.png 32w, assets/icons/app-icon-64.png 64w, assets/icons/app-icon-128.png 128w"
+            sizes="28px" alt="Angora" class="nav-icon" width="28" height="28" decoding="async">
+        </picture>
         <span>Angora</span>
       </a>
       <div class="nav-links">
@@ -117,7 +116,7 @@
   <section class="hero-preview" aria-label="Angora app preview">
     <img src="assets/app-annotations.webp"
       alt="Angora showing a PDF with colour-coded highlights and the annotation sidebar, annotation tools embedded in the macOS toolbar"
-      class="hero-shot" width="1920" height="1233">
+      class="hero-shot" width="1920" height="1233" decoding="async" fetchpriority="high">
   </section>
 
   <!-- Interactive Demo -->
@@ -128,6 +127,23 @@
       <p>Most PDF readers send you back to a toolbar every time you annotate. Angora splits the responsibilities
         cleanly: your cursor stays at your reading position; your keyboard runs the tools, the colours, and the page.
       </p>
+    </div>
+
+    <div class="demo-controls">
+      <div class="demo-switcher" role="tablist" aria-label="Workflow demo view">
+        <button type="button" data-demo-view="preview" role="tab" aria-selected="false"
+          aria-controls="demo-preview">Other readers</button>
+        <button type="button" class="active" data-demo-view="angora" role="tab" aria-selected="true"
+          aria-controls="demo-angora">Angora</button>
+      </div>
+      <button class="btn btn-ghost demo-replay" id="demo-replay">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 10a7 7 0 0 1 12.9-3.7M17 10a7 7 0 0 1-12.9 3.7" />
+          <polyline points="16 2 16 7 11 7" />
+          <polyline points="4 18 4 13 9 13" />
+        </svg>
+        Replay
+      </button>
     </div>
 
     <div class="demo-container">
@@ -190,16 +206,19 @@
             </div>
           </div>
         </div>
-        <div class="demo-stats" id="preview-stats">
-          <div class="stat"><span class="stat-value" id="preview-steps">—</span><span class="stat-label">steps</span>
+        <div class="demo-panel-footer">
+          <ol class="demo-step-list" id="preview-step-list" aria-label="Other readers workflow steps"></ol>
+          <div class="demo-stats" id="preview-stats">
+            <div class="stat"><span class="stat-value" id="preview-steps">—</span><span class="stat-label">steps</span>
+            </div>
+            <div class="stat"><span class="stat-value" id="preview-distance">—</span><span class="stat-label">cursor
+                travel</span></div>
           </div>
-          <div class="stat"><span class="stat-value" id="preview-distance">—</span><span class="stat-label">cursor
-              travel</span></div>
         </div>
       </div>
 
       <!-- Angora side -->
-      <div class="demo-panel demo-panel-angora" id="demo-angora">
+      <div class="demo-panel demo-panel-angora active" id="demo-angora">
         <div class="demo-label demo-label-angora">Angora</div>
         <div class="os-window demo-window">
           <div class="os-titlebar with-tools">
@@ -269,54 +288,24 @@
             </div>
           </div>
         </div>
-        <!-- Mock keyboard -->
-        <div class="mock-keyboard" id="mock-keyboard">
-          <div class="kb-row">
-            <div class="kb-key" data-key="Q">q</div>
-            <div class="kb-key" data-key="W">w</div>
-            <div class="kb-key" data-key="E">e</div>
-            <div class="kb-key" data-key="R">r</div>
-            <div class="kb-key" data-key="T">t</div>
-            <div class="kb-key" data-key="Y">y</div>
-            <div class="kb-key" data-key="U">u</div>
+        <div class="demo-panel-footer">
+          <ol class="demo-step-list" id="angora-step-list" aria-label="Angora workflow steps"></ol>
+          <div class="shortcut-strip" aria-label="Angora shortcut keys">
+            <span class="kb-key kb-key-tool" data-key="H">H</span>
+            <span class="kb-key" data-key="1">1</span>
+            <span class="kb-key" data-key="2">2</span>
+            <span class="kb-key" data-key="3">3</span>
           </div>
-          <div class="kb-row">
-            <div class="kb-key" data-key="A">a</div>
-            <div class="kb-key" data-key="S">s</div>
-            <div class="kb-key" data-key="D">d</div>
-            <div class="kb-key" data-key="F">f</div>
-            <div class="kb-key" data-key="G">g</div>
-            <div class="kb-key kb-key-tool" data-key="H">h</div>
-            <div class="kb-key" data-key="J">j</div>
+          <div class="demo-stats" id="angora-stats">
+            <div class="stat"><span class="stat-value" id="angora-steps">—</span><span class="stat-label">steps</span>
+            </div>
+            <div class="stat"><span class="stat-value" id="angora-distance">—</span><span class="stat-label">cursor
+                travel</span></div>
           </div>
-          <div class="kb-row">
-            <div class="kb-key kb-key-wide">shift</div>
-            <div class="kb-key" data-key="Z">z</div>
-            <div class="kb-key" data-key="X">x</div>
-            <div class="kb-key" data-key="C">c</div>
-            <div class="kb-key" data-key="N">n</div>
-            <div class="kb-key" data-key="1">1</div>
-            <div class="kb-key" data-key="2">2</div>
-            <div class="kb-key" data-key="3">3</div>
-          </div>
-        </div>
-        <div class="demo-stats" id="angora-stats">
-          <div class="stat"><span class="stat-value" id="angora-steps">—</span><span class="stat-label">steps</span>
-          </div>
-          <div class="stat"><span class="stat-value" id="angora-distance">—</span><span class="stat-label">cursor
-              travel</span></div>
         </div>
       </div>
     </div>
 
-    <button class="btn btn-ghost demo-replay" id="demo-replay">
-      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M3 10a7 7 0 0 1 12.9-3.7M17 10a7 7 0 0 1-12.9 3.7" />
-        <polyline points="16 2 16 7 11 7" />
-        <polyline points="4 18 4 13 9 13" />
-      </svg>
-      Replay
-    </button>
   </section>
 
   <!-- Quick colours -->
@@ -433,7 +422,7 @@
     <figure class="app-shot reveal">
       <img src="assets/app-colours.webp"
         alt="Angora with colour-coded highlights across a paper and the colour palette open in the annotation sidebar"
-        loading="lazy" width="1920" height="1233">
+        loading="lazy" decoding="async" width="1920" height="1233">
       <figcaption>Encode meaning with colour. Filter and sort the sidebar by type, colour, page or date.</figcaption>
     </figure>
 
@@ -477,7 +466,7 @@
     <figure class="app-shot reveal">
       <img src="assets/app-search.webp"
         alt="Angora document search showing 33 hits across 7 pages grouped by page, with a hover thumbnail preview of a result"
-        loading="lazy" width="1920" height="1233">
+        loading="lazy" decoding="async" width="1920" height="1233">
       <figcaption>Matches grouped by page with hit counts. Hover a page header for a live thumbnail preview.
       </figcaption>
     </figure>
@@ -567,13 +556,27 @@
   <section class="section download-section" id="download">
     <div class="download-content">
       <div class="download-icon-row" aria-label="Angora Beta">
-        <img src="assets/app-icon.png" alt="Angora" class="download-icon">
-        <img src="assets/app-icon-beta.png" alt="Angora Beta" class="download-icon">
+        <picture class="download-icon-wrap">
+          <source type="image/webp"
+            srcset="assets/icons/app-icon-64.webp 64w, assets/icons/app-icon-128.webp 128w, assets/icons/app-icon-256.webp 256w"
+            sizes="68px">
+          <img src="assets/icons/app-icon-128.png"
+            srcset="assets/icons/app-icon-64.png 64w, assets/icons/app-icon-128.png 128w, assets/icons/app-icon-256.png 256w"
+            sizes="68px" alt="Angora" class="download-icon" width="68" height="68" loading="lazy" decoding="async">
+        </picture>
+        <picture class="download-icon-wrap">
+          <source type="image/webp"
+            srcset="assets/icons/app-icon-beta-68.webp 68w, assets/icons/app-icon-beta-136.webp 136w, assets/icons/app-icon-beta-256.webp 256w, assets/icons/app-icon-beta-512.webp 512w"
+            sizes="68px">
+          <img src="assets/icons/app-icon-beta-68.png"
+            srcset="assets/icons/app-icon-beta-68.png 68w, assets/icons/app-icon-beta-136.png 136w, assets/icons/app-icon-beta-256.png 256w, assets/icons/app-icon-beta-512.png 512w"
+            sizes="68px" alt="Angora Beta" class="download-icon" width="68" height="68" loading="lazy" decoding="async">
+        </picture>
       </div>
       <h2>Try Angora Beta</h2>
       <p>For macOS 14 (Sonoma) or later. Apple Silicon or Intel.</p>
       <div class="download-actions">
-        <a href="#" class="btn btn-primary btn-large" id="download-dmg">Download .dmg</a>
+        <a href="https://github.com/j-nivekk/Angora-Beta/releases/download/v1.0.0-beta.1/Angora-Beta-1.0.0.dmg" class="btn btn-primary btn-large" id="download-dmg">Download .dmg</a>
         <a href="https://github.com/j-nivekk/Angora-Beta/releases" class="btn btn-ghost btn-large" target="_blank"
           rel="noopener">View on GitHub</a>
       </div>
@@ -585,14 +588,21 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <img src="assets/app-icon.png" alt="Angora" class="footer-icon">
+        <picture class="footer-icon-wrap">
+          <source type="image/webp"
+            srcset="assets/icons/app-icon-32.webp 32w, assets/icons/app-icon-64.webp 64w, assets/icons/app-icon-128.webp 128w"
+            sizes="20px">
+          <img src="assets/icons/app-icon-32.png"
+            srcset="assets/icons/app-icon-32.png 32w, assets/icons/app-icon-64.png 64w, assets/icons/app-icon-128.png 128w"
+            sizes="20px" alt="Angora" class="footer-icon" width="20" height="20" loading="lazy" decoding="async">
+        </picture>
         <span>Angora</span>
       </div>
       <p class="footer-note">Built for macOS.</p>
     </div>
   </footer>
 
-  <script src="script.js?v=3"></script>
+  <script src="script.js?v=4"></script>
 </body>
 
 </html>

@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initSmoothNav();
   initDemoAnimation();
+  initDownloadLink();
 });
 
 /* ===========================
@@ -44,6 +45,7 @@ function initScrollReveal() {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
@@ -100,10 +102,13 @@ function initDemoAnimation() {
     angoraTarget: document.getElementById('angora-target'),
     previewToolHighlight: document.getElementById('preview-tool-highlight'),
     previewToolbar: document.getElementById('preview-toolbar'),
+    previewStepList: document.getElementById('preview-step-list'),
+    angoraStepList: document.getElementById('angora-step-list'),
   };
 
   const demoSection = document.getElementById('demo');
   const replayBtn = document.getElementById('demo-replay');
+  initDemoSwitcher();
 
   // Reduced motion: present the end-state without animating.
   if (prefersReducedMotion) {
@@ -117,6 +122,7 @@ function initDemoAnimation() {
     entries.forEach((entry) => {
       if (entry.isIntersecting && !hasPlayed && !state.running) {
         hasPlayed = true;
+        demoObserver.disconnect();
         setTimeout(() => runDemo(state), 500);
       }
     });
@@ -154,6 +160,8 @@ function renderStaticResult(state) {
   const hTool = document.querySelector('[data-tool="H"]');
   if (hTool) hTool.classList.add('active');
 
+  setStepList(state.previewStepList, ['Move to toolbar', 'Choose highlight', 'Return to text', 'Select text', 'Back to controls', 'Context restored']);
+  setStepList(state.angoraStepList, ['Press H', 'Select text', 'Optional: press 3']);
   document.getElementById('preview-steps').textContent = '6';
   document.getElementById('preview-distance').textContent = '~480px';
   document.getElementById('angora-steps').textContent = '2';
@@ -169,10 +177,13 @@ function resetDemo(state) {
   state.angoraCursor.style.top = '';
 
   state.previewHighlight.classList.remove('visible');
+  state.previewHighlight.style.background = '';
   state.previewHighlight.style.left = '';
   state.previewHighlight.style.top = '';
   state.previewHighlight.style.width = '0';
   state.angoraHighlight.classList.remove('visible');
+  state.angoraHighlight.style.background = '';
+  state.angoraHighlight.classList.remove('colour-picked');
   state.angoraHighlight.style.left = '';
   state.angoraHighlight.style.top = '';
   state.angoraHighlight.style.width = '0';
@@ -187,6 +198,8 @@ function resetDemo(state) {
 
   document.querySelectorAll('.kb-key').forEach((k) => k.classList.remove('pressed'));
 
+  resetStepList(state.previewStepList);
+  resetStepList(state.angoraStepList);
   document.getElementById('preview-steps').textContent = '—';
   document.getElementById('preview-distance').textContent = '—';
   document.getElementById('angora-steps').textContent = '—';
@@ -239,6 +252,7 @@ async function runDemo(state) {
   };
 
   const previewTimeline = async () => {
+    addStep(state.previewStepList, 'Move to toolbar');
     previewSteps++;
     updateStats();
     const d1 = calcDist(previewStartX, previewStartY, toolbarX, toolbarY);
@@ -248,11 +262,13 @@ async function runDemo(state) {
 
     previewSteps++;
     await wait(300);
+    addStep(state.previewStepList, 'Choose highlight');
     state.previewToolHighlight.classList.add('active');
     updateStats();
     await wait(400);
 
     previewSteps++;
+    addStep(state.previewStepList, 'Return to text');
     const d2 = calcDist(toolbarX, toolbarY, pTargetStartX, pTargetY);
     previewDist += Math.round(d2);
     await animateCursor(state.previewCursor, toolbarX, toolbarY, pTargetStartX, pTargetY, 700, previewPathPoints, state.previewPath);
@@ -260,6 +276,7 @@ async function runDemo(state) {
     await wait(200);
 
     previewSteps++;
+    addStep(state.previewStepList, 'Select text');
     const d3 = calcDist(pTargetStartX, pTargetY, pTargetEndX, pTargetY);
     previewDist += Math.round(d3);
 
@@ -275,6 +292,7 @@ async function runDemo(state) {
     await wait(400);
 
     previewSteps++;
+    addStep(state.previewStepList, 'Back to controls');
     const d4 = calcDist(pTargetEndX, pTargetY, toolbarX, toolbarY);
     previewDist += Math.round(d4);
     await animateCursor(state.previewCursor, pTargetEndX, pTargetY, toolbarX, toolbarY, 700, previewPathPoints, state.previewPath);
@@ -282,6 +300,7 @@ async function runDemo(state) {
     await wait(500);
 
     previewSteps++;
+    addStep(state.previewStepList, 'Context restored');
     const finalY = pTargetY + 50;
     const d5 = calcDist(toolbarX, toolbarY, previewStartX + 40, finalY);
     previewDist += Math.round(d5);
@@ -293,16 +312,18 @@ async function runDemo(state) {
     await wait(200);
 
     angoraSteps++;
+    addStep(state.angoraStepList, 'Press H');
     const hKey = document.querySelector('.kb-key[data-key="H"]');
     const hTool = document.querySelector('[data-tool="H"]');
-    hKey.classList.add('pressed');
+    if (hKey) hKey.classList.add('pressed');
     if (hTool) hTool.classList.add('active');
     updateStats();
     await wait(500);
-    hKey.classList.remove('pressed');
+    if (hKey) hKey.classList.remove('pressed');
     await wait(200);
 
     angoraSteps++;
+    addStep(state.angoraStepList, 'Select text');
     const d1 = calcDist(angoraStartX, angoraStartY, aTargetStartX, aTargetY);
     angoraDist += Math.round(d1);
     await animateCursor(state.angoraCursor, angoraStartX, angoraStartY, aTargetStartX, aTargetY, 300, angoraPathPoints, state.angoraPath);
@@ -321,18 +342,65 @@ async function runDemo(state) {
     updateStats();
     await wait(400);
 
-    angoraSteps++;
+    addStep(state.angoraStepList, 'Optional: press 3');
     const threeKey = document.querySelector('.kb-key[data-key="3"]');
-    threeKey.classList.add('pressed');
-    state.angoraHighlight.style.background = 'rgba(222, 42, 18, 0.32)';
-    updateStats();
+    if (threeKey) threeKey.classList.add('pressed');
+    state.angoraHighlight.classList.add('colour-picked');
     await wait(600);
-    threeKey.classList.remove('pressed');
+    if (threeKey) threeKey.classList.remove('pressed');
   };
 
   await Promise.all([previewTimeline(), angoraTimeline()]);
 
+  document.getElementById('preview-steps').textContent = '6';
+  document.getElementById('preview-distance').textContent = '~480px';
+  document.getElementById('angora-steps').textContent = '2';
+  document.getElementById('angora-distance').textContent = '~150px';
+
   state.running = false;
+}
+
+function initDemoSwitcher() {
+  const buttons = document.querySelectorAll('.demo-switcher [data-demo-view]');
+  const panels = {
+    preview: document.getElementById('demo-preview'),
+    angora: document.getElementById('demo-angora'),
+  };
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const view = button.dataset.demoView;
+      buttons.forEach((item) => {
+        const active = item === button;
+        item.classList.toggle('active', active);
+        item.setAttribute('aria-selected', String(active));
+      });
+      Object.entries(panels).forEach(([key, panel]) => {
+        if (panel) panel.classList.toggle('active', key === view);
+      });
+    });
+  });
+}
+
+function resetStepList(listEl) {
+  if (!listEl) return;
+  listEl.replaceChildren();
+}
+
+function addStep(listEl, text) {
+  if (!listEl) return;
+  listEl.querySelectorAll('.demo-step-item').forEach((item) => item.classList.remove('active'));
+
+  const item = document.createElement('li');
+  item.className = 'demo-step-item entering active';
+  item.textContent = text;
+  listEl.appendChild(item);
+  requestAnimationFrame(() => item.classList.remove('entering'));
+}
+
+function setStepList(listEl, steps) {
+  resetStepList(listEl);
+  steps.forEach((step) => addStep(listEl, step));
 }
 
 /* ===========================
@@ -441,4 +509,34 @@ function animateCursorWithHighlight(el, fromX, fromY, toX, toY, duration, pathPo
 
     requestAnimationFrame(frame);
   });
+}
+
+/* ===========================
+   Dynamic Download Link
+   =========================== */
+
+function initDownloadLink() {
+  const downloadBtn = document.getElementById('download-dmg');
+  if (!downloadBtn) return;
+
+  fetch('https://api.github.com/repos/j-nivekk/Angora-Beta/releases')
+    .then((response) => {
+      if (!response.ok) return;
+      return response.json();
+    })
+    .then((data) => {
+      if (Array.isArray(data) && data.length > 0) {
+        // Find the first release that is not a draft. Pre-releases are fine.
+        const latest = data.find((r) => !r.draft);
+        if (latest && latest.assets && latest.assets.length > 0) {
+          const dmg = latest.assets.find((a) => a.name.endsWith('.dmg'));
+          if (dmg) {
+            downloadBtn.href = dmg.browser_download_url;
+          }
+        }
+      }
+    })
+    .catch((err) => {
+      console.warn('Could not fetch latest release dynamically:', err);
+    });
 }
