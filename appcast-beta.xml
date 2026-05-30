@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>Angora Beta Updates</title>
+    <link>https://j-nivekk.github.io/Angora-Beta/</link>
+    <description>Latest beta updates for Angora</description>
+    <language>en</language>
+    <item>
+      <title>Angora Beta 1.1.0-beta</title>
+      <link>https://j-nivekk.github.io/Angora-Beta/</link>
+      <sparkle:version>2</sparkle:version>
+      <sparkle:shortVersionString>1.1.0-beta</sparkle:shortVersionString>
+      <pubDate>Sat, 30 May 2026 15:00:00 +0000</pubDate>
+      <enclosure
+        url="https://github.com/j-nivekk/Angora-Beta/releases/download/v1.1.0-beta.1/Angora-Beta-1.1.0-beta.dmg"
+        sparkle:edSignature="2g1Z8LZBWluxBkS/WvRTjAm5PEXsDzHC8/Mjajk80qo4bQkZNb0/8k1p4ePhh+SfcIXfqPUzz6eXpyrdTyn+CA=="
+        length="11899444"
+        type="application/octet-stream" />
+    </item>
+  </channel>
+</rss>
