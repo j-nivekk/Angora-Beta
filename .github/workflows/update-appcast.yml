@@ -1,0 +1,124 @@
+name: Update Appcast
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to process (e.g. v1.1.0-beta.1)'
+        required: true
+
+permissions:
+  contents: write
+
+env:
+  SPARKLE_VERSION: 2.9.2
+  SPARKLE_SHA256: 1cb340cbbef04c6c0d162078610c25e2221031d794a3449d89f2f56f4df77c95
+
+jobs:
+  update-appcast:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Determine release tag
+        id: tag
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "tag=${{ github.event.release.tag_name }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=${{ github.event.inputs.tag }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Download DMG from release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release download "${{ steps.tag.outputs.tag }}" \
+            --pattern '*.dmg' \
+            --dir ./dmg_download
+
+      - name: Compute signature
+        env:
+          SPARKLE_PRIVATE_EDDSA_KEY: ${{ secrets.SPARKLE_PRIVATE_EDDSA_KEY }}
+        run: |
+          curl -L -o /tmp/Sparkle-${SPARKLE_VERSION}.tar.xz \
+            "https://github.com/sparkle-project/Sparkle/releases/download/${SPARKLE_VERSION}/Sparkle-${SPARKLE_VERSION}.tar.xz"
+          echo "${SPARKLE_SHA256}  /tmp/Sparkle-${SPARKLE_VERSION}.tar.xz" | shasum -a 256 -c -
+          mkdir -p /tmp/sparkle
+          tar -xf /tmp/Sparkle-${SPARKLE_VERSION}.tar.xz -C /tmp/sparkle
+          SPARKLE_SIGN_UPDATE="/tmp/sparkle/bin/sign_update"
+          
+          DMG_FILE=$(ls ./dmg_download/*.dmg | head -1)
+          DMG_NAME=$(basename "$DMG_FILE")
+          DMG_SIZE=$(stat -f%z "$DMG_FILE")
+          
+          # Sign with EdDSA and extract the signature portably
+          SIGNATURE=$(printf '%s' "$SPARKLE_PRIVATE_EDDSA_KEY" | "$SPARKLE_SIGN_UPDATE" --ed-key-file - "$DMG_FILE" | sed -n 's/.*edSignature="\([^"]*\)".*/\1/p')
+          
+          if [ -z "$SIGNATURE" ]; then
+            echo "Error: Failed to generate signature."
+            exit 1
+          fi
+          
+          echo "DMG_NAME=$DMG_NAME" >> "$GITHUB_ENV"
+          echo "DMG_SIZE=$DMG_SIZE" >> "$GITHUB_ENV"
+          echo "SIGNATURE=$SIGNATURE" >> "$GITHUB_ENV"
+
+      - name: Extract version info from DMG
+        run: |
+          DMG_FILE=$(ls ./dmg_download/*.dmg | head -1)
+          MOUNTPOINT=$(mktemp -d /tmp/angora_dmg_mount.XXXXXX)
+          hdiutil attach "$DMG_FILE" -nobrowse -mountpoint "$MOUNTPOINT"
+          
+          APP_PATH=$(find "$MOUNTPOINT" -type d -name "*.app" -prune | head -1)
+          BUNDLE_VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$APP_PATH/Contents/Info.plist")
+          SHORT_VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$APP_PATH/Contents/Info.plist")
+          
+          hdiutil detach "$MOUNTPOINT"
+          rmdir "$MOUNTPOINT"
+          
+          echo "BUNDLE_VERSION=$BUNDLE_VERSION" >> "$GITHUB_ENV"
+          echo "SHORT_VERSION=$SHORT_VERSION" >> "$GITHUB_ENV"
+
+      - name: Generate appcast-beta.xml
+        run: |
+          TAG="${{ steps.tag.outputs.tag }}"
+          DOWNLOAD_URL="https://github.com/j-nivekk/Angora-Beta/releases/download/${TAG}/${DMG_NAME}"
+          PUB_DATE=$(date -u '+%a, %d %b %Y %H:%M:%S %z')
+          
+          cat > appcast-beta.xml << EOF
+          <?xml version="1.0" encoding="utf-8"?>
+          <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+            <channel>
+              <title>Angora Beta Updates</title>
+              <link>https://j-nivekk.github.io/Angora-Beta/</link>
+              <description>Latest beta updates for Angora</description>
+              <language>en</language>
+              <item>
+                <title>Angora Beta ${SHORT_VERSION}</title>
+                <link>https://j-nivekk.github.io/Angora-Beta/</link>
+                <sparkle:version>${BUNDLE_VERSION}</sparkle:version>
+                <sparkle:shortVersionString>${SHORT_VERSION}</sparkle:shortVersionString>
+                <pubDate>${PUB_DATE}</pubDate>
+                <enclosure url="${DOWNLOAD_URL}"
+                           sparkle:edSignature="${SIGNATURE}"
+                           length="${DMG_SIZE}"
+                           type="application/octet-stream" />
+              </item>
+            </channel>
+          </rss>
+          EOF
+
+      - name: Commit and push appcast
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add appcast-beta.xml
+          if git diff --cached --quiet; then
+            echo "No appcast changes to commit."
+          else
+            git commit -m "Update appcast for ${{ steps.tag.outputs.tag }}"
+            git push
+          fi
