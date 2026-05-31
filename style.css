@@ -858,6 +858,22 @@ picture {
   line-height: 1.65;
 }
 
+.changelog-alt {
+  margin-top: 14px;
+  font-size: 14.5px;
+  color: var(--text-3);
+}
+
+.changelog-alt a {
+  color: var(--green);
+  font-weight: 500;
+  transition: opacity 0.15s ease;
+}
+
+.changelog-alt a:hover {
+  opacity: 0.85;
+}
+
 .eyebrow {
   display: inline-block;
   font-size: 13px;
