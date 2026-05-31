@@ -8,12 +8,12 @@
     <item>
       <title>Angora Beta 1.1.1-beta</title>
       <link>https://j-nivekk.github.io/Angora-Beta/</link>
-      <sparkle:version>1</sparkle:version>
+      <sparkle:version>3</sparkle:version>
       <sparkle:shortVersionString>1.1.1-beta</sparkle:shortVersionString>
-      <pubDate>Sun, 31 May 2026 17:18:30 +0000</pubDate>
+      <pubDate>Sun, 31 May 2026 17:20:28 +0000</pubDate>
       <enclosure url="https://github.com/j-nivekk/Angora-Beta/releases/download/v1.1.1-beta.1/Angora-Beta-1.1.1-beta.dmg"
-                 sparkle:edSignature="egAlLPKgx7SOskmPZS5GKDO+srDL9twSuUouDv9nnE4S9c7pycUx7fGHbBjnZx+Sb4kxdvf+GDFug6Q9MVJCDA=="
-                 length="11997536"
+                 sparkle:edSignature="J9omMvUNZHeAlvofWiZ3qMg5F69q36A4sdLEKiWhuWKBLP28300wW8mH6WmTvA05UOIOWWKQ7H4Xy1Bih15qCg=="
+                 length="11997066"
                  type="application/octet-stream" />
     </item>
   </channel>
