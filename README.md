@@ -58,13 +58,21 @@ Press the same key again to deactivate, or another to switch tools. Every shortc
 
 Once a tool is active, press `1` through `9` to apply any of nine customisable colours. Press `0` to return to the tool's default. Angora remembers the last colour you used for each tool, so a second highlight uses the same colour as the first — no reselection needed.
 
-The palette is fully editable in **Settings → Annotation → Quick Colours**. If you don't want to choose nine colours yourself, Angora can generate a perceptually balanced palette on request.
+The palette is fully editable in **Settings → Annotation → Quick Colours**. If you'd rather not pick nine colours by hand, choose one of the built-in palettes — including colourblind-friendly sets — or let Angora build a balanced one for you. Save palettes you like as your own presets. When two colours are close enough to be hard to tell apart at a glance, Angora quietly flags them, so your colour-coding stays legible.
+
+### Quick Comment
+
+Add a comment to any existing annotation without leaving the page or opening the sidebar. Press the Quick Comment shortcut (**C** by default, remappable in Settings), click a highlight, underline or shape, and type in the comment box that appears right where you clicked. Save with **Return**, the **Save** button, or simply by clicking away — and you can keep scrolling and zooming while the box is open. Press **Escape** to discard. Every comment goes through the same undo and sidebar updates as the rest of your annotations.
+
+### Readable text boxes
+
+When you give a text box a colour, the colour fills the box itself while the text inside automatically switches to a high-contrast shade — so your note stays easy to read on any background.
 
 ---
 
 ## Annotation management that scales
 
-When you are working through a three-hundred-page report or a dense journal article, scattered annotations are not enough. You need to see them in one place, filter them, and navigate between them quickly.
+When you are working through a three-hundred-page report or a dense journal article, scattered annotations are not enough. You need to see them in one place, filter them, and navigate between them quickly. Angora's annotation list stays fast and accurate even when a document carries hundreds of marks.
 
 Angora's sidebar provides a dedicated **Annotations** panel with real structure.
 
@@ -97,6 +105,7 @@ Step through matches with `Tab` (or `↩`), toggle the red `=` icon for exact-ma
 - **Table of contents.** PDF outlines render in the Contents tab of the sidebar.
 - **Localisation.** Multi-language support, configurable in **Settings → General → Language & Region**.
 - **Haptic feedback** on supported hardware. Toggle in **Settings → General → Feedback**.
+- **Automatic updates.** Angora checks for new beta builds and can install them in place, so you stay on the latest version without hunting for a download.
 - **Guided onboarding** on first launch, available again at any time from the **Help** menu.
 
 ---

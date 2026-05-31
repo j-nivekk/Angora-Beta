@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Changelog — Angora</title>
+  <meta name="description"
+    content="What's new in Angora. Release notes for every Angora beta, pulled from GitHub Releases.">
+  <link rel="icon" type="image/png" href="assets/icons/app-icon-64.png">
+  <link rel="preload" href="assets/fonts/AlteHaasGroteskBold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="style.css?v=8">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Angora — Changelog">
+  <meta property="og:description" content="What's new in Angora. Release notes for every beta.">
+  <meta property="og:url" content="https://j-nivekk.github.io/Angora-Beta/changelog.html">
+  <meta property="og:image" content="https://j-nivekk.github.io/Angora-Beta/assets/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://j-nivekk.github.io/Angora-Beta/assets/og-card.png">
+
+  <script>
+    // Set theme before paint to avoid flash of incorrect theme.
+    (function () {
+      try {
+        var stored = localStorage.getItem('angora-theme');
+        var theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) { }
+    })();
+  </script>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html#hero" class="nav-brand">
+        <picture class="nav-icon-wrap">
+          <source type="image/webp"
+            srcset="assets/icons/app-icon-32.webp 32w, assets/icons/app-icon-64.webp 64w, assets/icons/app-icon-128.webp 128w"
+            sizes="28px">
+          <img src="assets/icons/app-icon-64.png"
+            srcset="assets/icons/app-icon-32.png 32w, assets/icons/app-icon-64.png 64w, assets/icons/app-icon-128.png 128w"
+            sizes="28px" alt="Angora" class="nav-icon" width="28" height="28" decoding="async">
+        </picture>
+        <span>Angora</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html#features">Features</a>
+        <a href="index.html#annotations">Annotations</a>
+        <a href="index.html#search">Search</a>
+        <a href="changelog.html" aria-current="page">Changelog</a>
+        <a href="index.html#download" class="nav-cta">Download</a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4.2" />
+            <path
+              d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Changelog -->
+  <main class="section changelog-section">
+    <div class="section-header">
+      <span class="eyebrow">Changelog</span>
+      <h1>What's new in Angora</h1>
+      <p>Release notes for every beta, pulled straight from GitHub. Angora updates itself, so you're always a launch
+        away from the latest.</p>
+    </div>
+
+    <div class="changelog-list" id="changelog-list">
+      <p class="changelog-status" id="changelog-status">Loading release notes…</p>
+    </div>
+
+    <p class="changelog-foot">
+      Looking for downloads? <a href="index.html#download">Get the latest beta →</a>
+    </p>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <picture class="footer-icon-wrap">
+          <source type="image/webp"
+            srcset="assets/icons/app-icon-32.webp 32w, assets/icons/app-icon-64.webp 64w, assets/icons/app-icon-128.webp 128w"
+            sizes="20px">
+          <img src="assets/icons/app-icon-32.png"
+            srcset="assets/icons/app-icon-32.png 32w, assets/icons/app-icon-64.png 64w, assets/icons/app-icon-128.png 128w"
+            sizes="20px" alt="Angora" class="footer-icon" width="20" height="20" loading="lazy" decoding="async">
+        </picture>
+        <span>Angora</span>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="changelog.html">Changelog</a>
+        <a href="https://github.com/j-nivekk/Angora-Beta/releases" target="_blank" rel="noopener">Releases</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js?v=5"></script>
+</body>
+
+</html>

@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothNav();
   initDemoAnimation();
   initDownloadLink();
+  initChangelog();
 });
 
 /* ===========================
@@ -515,28 +516,190 @@ function animateCursorWithHighlight(el, fromX, fromY, toX, toY, duration, pathPo
    Dynamic Download Link
    =========================== */
 
+const RELEASES_URL = 'https://api.github.com/repos/j-nivekk/Angora-Beta/releases';
+const RELEASES_CACHE_KEY = 'angora-releases-cache';
+const RELEASES_CACHE_TTL = 60 * 60 * 1000; // 1 hour
+
+// Single source of truth for GitHub Releases. Caches the response in
+// localStorage so navigating between the landing page and the changelog —
+// and repeat visits within the hour — reuse one request and never bump into
+// the unauthenticated API rate limit (60/hour per IP).
+let releasesPromise = null;
+
+function fetchReleases() {
+  if (releasesPromise) return releasesPromise;
+
+  try {
+    const cached = JSON.parse(localStorage.getItem(RELEASES_CACHE_KEY) || 'null');
+    if (cached && Date.now() - cached.time < RELEASES_CACHE_TTL && Array.isArray(cached.data)) {
+      releasesPromise = Promise.resolve(cached.data);
+      return releasesPromise;
+    }
+  } catch (e) { /* ignore malformed cache */ }
+
+  releasesPromise = fetch(RELEASES_URL)
+    .then((response) => {
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      return response.json();
+    })
+    .then((data) => {
+      if (!Array.isArray(data)) throw new Error('Unexpected response');
+      try {
+        localStorage.setItem(RELEASES_CACHE_KEY, JSON.stringify({ time: Date.now(), data }));
+      } catch (e) { /* storage full or unavailable */ }
+      return data;
+    });
+
+  return releasesPromise;
+}
+
 function initDownloadLink() {
   const downloadBtn = document.getElementById('download-dmg');
   if (!downloadBtn) return;
 
-  fetch('https://api.github.com/repos/j-nivekk/Angora-Beta/releases')
-    .then((response) => {
-      if (!response.ok) return;
-      return response.json();
-    })
+  fetchReleases()
     .then((data) => {
-      if (Array.isArray(data) && data.length > 0) {
-        // Find the first release that is not a draft. Pre-releases are fine.
-        const latest = data.find((r) => !r.draft);
-        if (latest && latest.assets && latest.assets.length > 0) {
-          const dmg = latest.assets.find((a) => a.name.endsWith('.dmg'));
-          if (dmg) {
-            downloadBtn.href = dmg.browser_download_url;
-          }
+      // Find the first release that is not a draft. Pre-releases are fine.
+      const latest = data.find((r) => !r.draft);
+      if (latest && latest.assets && latest.assets.length > 0) {
+        const dmg = latest.assets.find((a) => a.name.endsWith('.dmg'));
+        if (dmg) {
+          downloadBtn.href = dmg.browser_download_url;
         }
       }
     })
     .catch((err) => {
       console.warn('Could not fetch latest release dynamically:', err);
     });
+}
+
+/* ===========================
+   Changelog
+   Renders the latest GitHub Releases on changelog.html, reusing the cached
+   fetch above. Release bodies are maintainer-authored Markdown; we render a
+   focused subset (headings, bold, inline code, links, lists) after escaping,
+   so there is no external dependency and nothing unsanitised reaches the DOM.
+   =========================== */
+
+const CHANGELOG_MAX_ENTRIES = 8;
+
+function initChangelog() {
+  const list = document.getElementById('changelog-list');
+  if (!list) return;
+
+  const status = document.getElementById('changelog-status');
+
+  fetchReleases()
+    .then((data) => {
+      const releases = data.filter((r) => !r.draft).slice(0, CHANGELOG_MAX_ENTRIES);
+      if (releases.length === 0) {
+        if (status) status.textContent = 'No releases published yet.';
+        return;
+      }
+      if (status) status.remove();
+      list.innerHTML = releases.map(renderRelease).join('');
+    })
+    .catch((err) => {
+      console.warn('Could not load releases:', err);
+      if (status) {
+        status.innerHTML = 'Couldn’t load the changelog. ' +
+          '<a href="https://github.com/j-nivekk/Angora-Beta/releases" target="_blank" rel="noopener">View releases on GitHub</a>.';
+      }
+    });
+}
+
+function renderRelease(release) {
+  const title = release.name || release.tag_name || 'Release';
+  const date = release.published_at ? formatReleaseDate(release.published_at) : '';
+  const tag = release.tag_name ? escapeHtml(release.tag_name) : '';
+  const url = release.html_url || 'https://github.com/j-nivekk/Angora-Beta/releases';
+  const prerelease = release.prerelease
+    ? '<span class="release-badge">Pre-release</span>' : '';
+  const body = release.body && release.body.trim()
+    ? renderMarkdown(release.body)
+    : '<p class="release-empty">No notes for this release.</p>';
+
+  return (
+    '<article class="release reveal visible">' +
+      '<header class="release-head">' +
+        '<div class="release-meta">' +
+          (tag ? '<span class="release-tag">' + tag + '</span>' : '') +
+          (date ? '<span class="release-date">' + date + '</span>' : '') +
+          prerelease +
+        '</div>' +
+        '<h2 class="release-title">' + escapeHtml(title) + '</h2>' +
+      '</header>' +
+      '<div class="release-body">' + body + '</div>' +
+      '<a class="release-link" href="' + escapeAttr(url) + '" target="_blank" rel="noopener">View on GitHub →</a>' +
+    '</article>'
+  );
+}
+
+function formatReleaseDate(iso) {
+  const d = new Date(iso);
+  if (isNaN(d)) return '';
+  return d.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function escapeAttr(str) {
+  return escapeHtml(str).replace(/"/g, '&quot;');
+}
+
+// Inline Markdown: code, bold, italic, links. Input is already HTML-escaped.
+function renderInline(text) {
+  return text
+    .replace(/`([^`]+)`/g, (m, code) => '<code>' + code + '</code>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, label, href) => {
+      // href came through escapeHtml; only allow http(s) and anchors.
+      if (!/^(https?:|#|\/|mailto:)/i.test(href)) return label;
+      return '<a href="' + href.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener">' + label + '</a>';
+    });
+}
+
+// Block-level Markdown for the subset GitHub release notes use.
+function renderMarkdown(md) {
+  const lines = escapeHtml(md.replace(/\r\n/g, '\n')).split('\n');
+  const html = [];
+  let listOpen = false;
+
+  const closeList = () => {
+    if (listOpen) { html.push('</ul>'); listOpen = false; }
+  };
+
+  for (let raw of lines) {
+    const line = raw.trim();
+
+    if (line === '') { closeList(); continue; }
+
+    if (line === '---' || line === '***') { closeList(); html.push('<hr>'); continue; }
+
+    const heading = line.match(/^(#{1,6})\s+(.*)$/);
+    if (heading) {
+      closeList();
+      const level = Math.min(heading[1].length + 1, 6); // demote: page H1 is the section title
+      html.push('<h' + level + '>' + renderInline(heading[2]) + '</h' + level + '>');
+      continue;
+    }
+
+    const bullet = line.match(/^[-*]\s+(.*)$/);
+    if (bullet) {
+      if (!listOpen) { html.push('<ul>'); listOpen = true; }
+      html.push('<li>' + renderInline(bullet[1]) + '</li>');
+      continue;
+    }
+
+    closeList();
+    html.push('<p>' + renderInline(line) + '</p>');
+  }
+
+  closeList();
+  return html.join('');
 }

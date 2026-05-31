@@ -9,7 +9,10 @@
     content="Angora is a native macOS PDF reader and annotator for researchers, scholars and professionals. One-key annotation, native performance, and an annotation sidebar that scales to long documents.">
   <link rel="icon" type="image/png" href="assets/icons/app-icon-64.png">
   <link rel="preload" href="assets/fonts/AlteHaasGroteskBold.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="style.css?v=8">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Angora — Good work begins with gleaming tools.">
@@ -54,6 +57,7 @@
         <a href="#annotations">Annotations</a>
         <a href="#search">Search</a>
         <a href="#more">More</a>
+        <a href="changelog.html">Changelog</a>
         <a href="#download" class="nav-cta">Download</a>
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour theme">
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
@@ -103,8 +107,9 @@
     </div>
 
     <div class="hero-meta">
-      <p class="hero-sub">One-key annotation, native performance, and annotation management that holds up across
-        documents hundreds of pages long. Your cursor never leaves the page.</p>
+      <p class="hero-sub">How many steps should it take to annotate a PDF? <strong>It takes one.</strong> Press a key,
+        select your text, and you're done. Your cursor never leaves the page. A native Mac reader for long, serious
+        documents.</p>
       <div class="hero-actions">
         <a href="#download" class="btn btn-primary">Download Beta</a>
         <a href="#demo" class="btn btn-ghost">See how it works</a>
@@ -123,10 +128,9 @@
   <section class="section demo-section" id="demo">
     <div class="section-header">
       <span class="eyebrow">Workflow</span>
-      <h2>The difference is in the workflow</h2>
-      <p>Most PDF readers send you back to a toolbar every time you annotate. Angora splits the responsibilities
-        cleanly: your cursor stays at your reading position; your keyboard runs the tools, the colours, and the page.
-      </p>
+      <h2>Count the steps yourself.</h2>
+      <p>One sentence, highlighted in a traditional reader and in Angora. Flip between the two and watch the steps and
+        the cursor travel pile up on one side.</p>
     </div>
 
     <div class="demo-controls">
@@ -306,6 +310,14 @@
       </div>
     </div>
 
+    <div class="statement reveal">
+      <p class="statement-eyebrow">There's a name for the slow path.</p>
+      <h3 class="statement-big wide">Fitts's law: the time to hit a target grows with its <span class="dim">distance</span>,
+        and shrinks with its <span class="dim">size</span>.</h3>
+      <p class="statement-body">A toolbar button is small and far from the line you're reading. A keystroke is
+        instant — zero distance, zero chance to miss. The cursor-travel counter above is the law, measured.</p>
+    </div>
+
   </section>
 
   <!-- Quick colours -->
@@ -315,6 +327,8 @@
       <h2>Press a number, change the colour</h2>
       <p>Keys 1 to 9 apply any of nine customisable colours. Press 0 to return to the default. Angora remembers the last
         colour you used for each tool.</p>
+      <p>Pick from built-in palettes, including colourblind-friendly sets. Save your own, or let Angora build a
+        balanced one for you. It quietly flags any two colours that are hard to tell apart at a glance.</p>
     </div>
     <div class="palette">
       <div class="swatch"><span class="swatch-dot" style="background:#f4d03f"></span><span class="swatch-num">1</span>
@@ -346,17 +360,27 @@
       <p>Every feature in Angora is designed to minimise interruption and keep you focused on the document.</p>
     </div>
 
-    <div class="features-grid">
-      <div class="feature reveal">
-        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-            stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="4" />
-            <path d="M7 12h10" />
-          </svg></div>
-        <h3>One-key annotation</h3>
-        <p><strong>Customisable, tool-sensitive, cursor-independent, menu-free shortcuts — for every tool.</strong> Press
-          a letter, select your text, and you are done. Any less, and we would be doing the job for you.</p>
+    <div class="marquee reveal">
+      <div class="marquee-lead">
+        One-key <span class="dim">customisable, tool-sensitive, cursor-independent, menu-free</span> shortcuts, for any
+        tool.
       </div>
+      <div class="marquee-punch">
+        <p>Highlight text. Draw shapes. Take notes.</p>
+        <p>Select colours. Switch tools.</p>
+        <p>One key and you're there.</p>
+
+      </div>
+      <div class="marquee-body">
+        <p>Traditional readers like Acrobat, Preview and Zotero send you back to a menu or toolbar for the most basic mark.
+          Even setting a colour means moving your cursor off the page to click something irrelevant to your reading.</p>
+        <p>Angora splits the work: your <strong>cursor</strong> stays at your
+          reading position, ready to select any text or area; your <strong>keyboard</strong> runs the tools, the colours
+          and the page.</p>
+      </div>
+    </div>
+
+    <div class="features-grid">
       <div class="feature reveal">
         <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <circle cx="12" cy="12" r="4" />
@@ -364,8 +388,18 @@
             <path d="M12 3v2m0 14v2M3 12h2m14 0h2" />
           </svg></div>
         <h3>Quick colour palette</h3>
-        <p>Press 1 to 9 to apply any of nine customisable colours. Press 0 to return to the default. Angora remembers
-          the last colour you used for each tool.</p>
+        <p>Press 1 to 9 to apply any of nine customisable colours. Press 0 to return to the default. Choose from
+          built-in palettes, including colourblind-friendly sets, or save your own.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 5h16v11H8l-4 4z" />
+            <path d="M8 9h8M8 12.5h5" />
+          </svg></div>
+        <h3>Quick Comment</h3>
+        <p>Press C, click any existing highlight or mark, and type a comment right on the page. Save by clicking away,
+          and keep scrolling and zooming while you write.</p>
       </div>
       <div class="feature reveal">
         <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
@@ -373,8 +407,8 @@
             <path d="M13 2 4 14h7l-1 8 10-12h-8l1-8z" />
           </svg></div>
         <h3>Native performance</h3>
-        <p>Built in SwiftUI on top of PDFKit — not Electron, not a web view. Instant startup, smooth scrolling, low
-          memory, and real system integration.</p>
+        <p>A native macOS app — SwiftUI on PDFKit. Instant startup, smooth scrolling, low memory, and full system
+          integration.</p>
       </div>
       <div class="feature reveal">
         <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
@@ -416,7 +450,7 @@
     <div class="section-header">
       <span class="eyebrow">Annotations</span>
       <h2>Annotation management that scales</h2>
-      <p>When you are working through a three-hundred-page report, scattered annotations are not enough.</p>
+      <p>A three-hundred-page report needs annotations you can sort, filter and search.</p>
     </div>
 
     <figure class="app-shot reveal">
@@ -437,12 +471,12 @@
         <div class="detail-label">Filter</div>
         <h3>Type and colour filtering</h3>
         <p>Toggle annotation types on or off with a visual filter bar. Narrow by colour when you use colour to encode
-          meaning. Name your colours from the context menu — named colours sort to the front.</p>
+          meaning. Name your colours from the context menu; named colours sort to the front.</p>
       </div>
       <div class="detail-item reveal">
         <div class="detail-label">Edit</div>
         <h3>Inline editing with Markdown</h3>
-        <p>Hover over any annotation to reveal edit and delete controls. Comments render inline Markdown — write in
+        <p>Hover over any annotation to reveal edit and delete controls. Comments render inline Markdown: write in
           plain text, see the formatting in place.</p>
       </div>
       <div class="detail-item reveal">
@@ -474,7 +508,7 @@
     <div class="search-features">
       <div class="search-feature reveal">
         <span class="search-key">Tab</span>
-        <p>Step through matches — each result scrolls into view and is highlighted in the PDF.</p>
+        <p>Step through matches. Each result scrolls into view and is highlighted in the PDF.</p>
       </div>
       <div class="search-feature reveal">
         <span class="search-key">=</span>
@@ -510,6 +544,8 @@
     <div class="section-header">
       <span class="eyebrow">And more</span>
       <h2>Details that add up</h2>
+      <p>It already feels familiar. Thumbnails, table of contents, search — everything you know is there. Everything
+        new only makes the work lighter.</p>
     </div>
 
     <div class="more-grid">
@@ -534,6 +570,16 @@
       <div class="more-item reveal">
         <h3>Table of contents</h3>
         <p>Navigate structured documents through the outline panel in the sidebar.</p>
+      </div>
+      <div class="more-item reveal">
+        <h3>Readable text boxes</h3>
+        <p>Colour a text box and the text inside automatically switches to a high-contrast shade, so your note stays
+          easy to read on any background.</p>
+      </div>
+      <div class="more-item reveal">
+        <h3>Automatic updates</h3>
+        <p>Angora checks for new beta builds and installs them in place, so you stay on the latest version without
+          hunting for a download.</p>
       </div>
       <div class="more-item reveal">
         <h3>Haptic feedback</h3>
@@ -575,7 +621,8 @@
       </div>
       <h2>Try Angora Beta</h2>
       <p>For macOS 14 (Sonoma) or later. Apple Silicon or Intel.</p>
-      <p class="download-note">Latest beta: 1.1.0-beta.1 · Quick Colour presets and Quick Comment.</p>
+      <p class="download-note">Latest beta: 1.1.0-beta.1 · Quick Colour presets and Quick Comment. <a
+          href="changelog.html">See what's new →</a></p>
       <div class="download-actions">
         <a href="https://github.com/j-nivekk/Angora-Beta/releases/download/v1.1.0-beta.1/Angora-Beta-1.1.0-beta.dmg" class="btn btn-primary btn-large" id="download-dmg">Download .dmg</a>
         <a href="https://github.com/j-nivekk/Angora-Beta/releases" class="btn btn-ghost btn-large" target="_blank"
@@ -599,11 +646,14 @@
         </picture>
         <span>Angora</span>
       </div>
-      <p class="footer-note">Built for macOS.</p>
+      <div class="footer-links">
+        <a href="changelog.html">Changelog</a>
+        <a href="https://github.com/j-nivekk/Angora-Beta/releases" target="_blank" rel="noopener">Releases</a>
+      </div>
     </div>
   </footer>
 
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=5"></script>
 </body>
 
 </html>
