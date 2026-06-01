@@ -111,6 +111,8 @@ function initDemoAnimation() {
   const replayBtn = document.getElementById('demo-replay');
   initDemoSwitcher();
 
+  if (!demoSection) return;
+
   // Reduced motion: present the end-state without animating.
   if (prefersReducedMotion) {
     renderStaticResult(state);
@@ -516,9 +518,10 @@ function animateCursorWithHighlight(el, fromX, fromY, toX, toY, duration, pathPo
    Dynamic Download Link
    =========================== */
 
-const RELEASES_URL = 'https://api.github.com/repos/j-nivekk/Angora-Beta/releases';
-const RELEASES_CACHE_KEY = 'angora-releases-cache';
+const RELEASES_URL = 'https://api.github.com/repos/j-nivekk/Angora-Beta/releases?per_page=8';
+const RELEASES_CACHE_KEY = 'angora-releases-cache-v2';
 const RELEASES_CACHE_TTL = 60 * 60 * 1000; // 1 hour
+const RELEASES_FETCH_TIMEOUT = 8000;
 
 // Single source of truth for GitHub Releases. Caches the response in
 // localStorage so navigating between the landing page and the changelog —
@@ -529,15 +532,23 @@ let releasesPromise = null;
 function fetchReleases() {
   if (releasesPromise) return releasesPromise;
 
+  let cachedData = null;
+
   try {
     const cached = JSON.parse(localStorage.getItem(RELEASES_CACHE_KEY) || 'null');
-    if (cached && Date.now() - cached.time < RELEASES_CACHE_TTL && Array.isArray(cached.data)) {
-      releasesPromise = Promise.resolve(cached.data);
+    if (cached && Array.isArray(cached.data)) {
+      cachedData = cached.data;
+    }
+    if (cachedData && Date.now() - cached.time < RELEASES_CACHE_TTL) {
+      releasesPromise = Promise.resolve(cachedData);
       return releasesPromise;
     }
   } catch (e) { /* ignore malformed cache */ }
 
-  releasesPromise = fetch(RELEASES_URL)
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), RELEASES_FETCH_TIMEOUT);
+
+  releasesPromise = fetch(RELEASES_URL, { signal: controller.signal })
     .then((response) => {
       if (!response.ok) throw new Error('HTTP ' + response.status);
       return response.json();
@@ -548,14 +559,20 @@ function fetchReleases() {
         localStorage.setItem(RELEASES_CACHE_KEY, JSON.stringify({ time: Date.now(), data }));
       } catch (e) { /* storage full or unavailable */ }
       return data;
-    });
+    })
+    .catch((err) => {
+      if (cachedData) return cachedData;
+      throw err;
+    })
+    .finally(() => window.clearTimeout(timeout));
 
   return releasesPromise;
 }
 
 function initDownloadLink() {
   const downloadBtn = document.getElementById('download-dmg');
-  if (!downloadBtn) return;
+  const downloadNote = document.getElementById('latest-release-note');
+  if (!downloadBtn && !downloadNote) return;
 
   fetchReleases()
     .then((data) => {
@@ -563,14 +580,44 @@ function initDownloadLink() {
       const latest = data.find((r) => !r.draft);
       if (latest && latest.assets && latest.assets.length > 0) {
         const dmg = latest.assets.find((a) => a.name.endsWith('.dmg'));
-        if (dmg) {
+        if (downloadBtn && dmg) {
           downloadBtn.href = dmg.browser_download_url;
         }
+      }
+      if (downloadNote && latest) {
+        updateLatestReleaseNote(downloadNote, latest);
       }
     })
     .catch((err) => {
       console.warn('Could not fetch latest release dynamically:', err);
     });
+}
+
+function updateLatestReleaseNote(noteEl, release) {
+  const version = release.name || release.tag_name || 'Latest beta';
+  const summary = getReleaseSummary(release.body);
+  noteEl.replaceChildren(
+    document.createTextNode('Latest beta: ' + version + (summary ? ' · ' + summary + ' ' : ' ')),
+    createInternalLink('See what’s new →', 'changelog.html')
+  );
+}
+
+function getReleaseSummary(body) {
+  if (!body) return '';
+
+  const plain = body
+    .split('\n')
+    .map((line) => line.replace(/^#{1,6}\s+/, '').replace(/^[-*]\s+/, '').trim())
+    .find((line) => line && !/^[-*_]{3,}$/.test(line));
+
+  return plain ? plain.replace(/[`*_#[\]]/g, '').replace(/\((https?:\/\/[^)]+)\)/g, '').slice(0, 140) : '';
+}
+
+function createInternalLink(text, href) {
+  const link = document.createElement('a');
+  link.href = href;
+  link.textContent = text;
+  return link;
 }
 
 /* ===========================
