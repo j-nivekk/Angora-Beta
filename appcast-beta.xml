@@ -8,12 +8,12 @@
     <item>
       <title>Angora Beta 1.1.3-beta (Smoke Pearl)</title>
       <link>https://j-nivekk.github.io/Angora-Beta/</link>
-      <sparkle:version>1113.2</sparkle:version>
+      <sparkle:version>1113.3</sparkle:version>
       <sparkle:shortVersionString>1.1.3-beta (Smoke Pearl)</sparkle:shortVersionString>
-      <pubDate>Thu, 04 Jun 2026 09:55:56 +0000</pubDate>
-      <enclosure url="https://github.com/j-nivekk/Angora-Beta/releases/download/v1.1.3-beta.2/Angora-Beta-1113.2.dmg"
-                 sparkle:edSignature="Wj7O/2vYl3VoP3F9xFdRW2nX14JScoNH8CiHVcaoCRHczoEH7QqB4Fhr4XVTBV4YivLSTO0wz8Wjq9BvBdzmCA=="
-                 length="12249764"
+      <pubDate>Fri, 05 Jun 2026 09:06:34 +0000</pubDate>
+      <enclosure url="https://github.com/j-nivekk/Angora-Beta/releases/download/v1.1.3-beta.3/Angora-Beta-1113.3.dmg"
+                 sparkle:edSignature="XO8K7Rj0aCB59deFlaZn1koWCnxJW3B0N5xT2Z1x/T4wsOOegn/VMkLK1ydLh373vurBrToBpM5kZV2FwlWWCA=="
+                 length="12274677"
                  type="application/octet-stream" />
     </item>
   </channel>
