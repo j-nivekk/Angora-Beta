@@ -621,10 +621,16 @@
       </div>
       <h2>Try Angora Beta</h2>
       <p>For macOS 14 (Sonoma) or later. Apple Silicon or Intel.</p>
-      <p class="download-note" id="latest-release-note">Latest beta: 1.1.1-beta.1 · Multi-language localization updates and stability fixes. <a
+      <!-- No version is named here on purpose. script.js rewrites this line and the
+           button's href from the GitHub releases API, and when that fetch fails (rate
+           limit, offline, blocked) it leaves both exactly as they are. Anything
+           hardcoded therefore goes stale at the next release and quietly hands
+           visitors an old build; /releases/latest always resolves to the newest one. -->
+      <p class="download-note" id="latest-release-note">Always the newest build, straight from the <a
+          href="https://github.com/j-nivekk/Angora-Beta/releases/latest">Releases page</a>. <a
           href="changelog.html">See what's new →</a></p>
       <div class="download-actions">
-        <a href="https://github.com/j-nivekk/Angora-Beta/releases/download/v1.1.1-beta.1/Angora-Beta-1.1.1-beta.dmg" class="btn btn-primary btn-large" id="download-dmg">Download .dmg</a>
+        <a href="https://github.com/j-nivekk/Angora-Beta/releases/latest" class="btn btn-primary btn-large" id="download-dmg">Download .dmg</a>
         <a href="https://github.com/j-nivekk/Angora-Beta/releases" class="btn btn-ghost btn-large" target="_blank"
           rel="noopener">View on GitHub</a>
       </div>
